@@ -1,0 +1,53 @@
+{
+  "sections": [
+    {
+      "id": 1,
+      "section": "cps_intro",
+      "section_display": "CPS介绍",
+      "title": "CPS介绍",
+      "content": "待填写内容",
+      "image_url": "",
+      "order": 0
+    },
+    {
+      "id": 2,
+      "section": "cps_importance",
+      "section_display": "CPS重要性",
+      "title": "CPS重要性",
+      "content": "待填写内容",
+      "image_url": "",
+      "order": 1
+    },
+    {
+      "id": 3,
+      "section": "measurement_intro",
+      "section_display": "测量部分介绍",
+      "title": "测量部分",
+      "page_title": "整体介绍",
+      "content": "本研究针对实证研究中收集到的大规模在线合作解决问题的过程性数据，构建以理论为依据、以机器学习算法为支撑的自动编码体系，完成在线合作解决问题行为的特征提取。研究中，从认知科学指标框架和心理测量评价标准出发，构建理论与证据的关联体系和具体标注编码规则;然后，用具体编码规则指导对于部分数据的人工标注;最终，利用半监督学习的机器学习算法，以部分已标注数据和大部分未标注数据作为输入，训练模型，并实现大规模数据的自动编码。",
+      "short_content": "编码规则构建与人工标注\n自动编码",
+      "image_url": "",
+      "order": 2
+    },
+    {
+      "id": 4,
+      "section": "analysis_intro",
+      "section_display": "分析部分介绍",
+      "title": "分析部分",
+      "content": "预测类\n描述类",
+      "image_url": "",
+      "order": 3
+    },
+    {
+      "id": 5,
+      "section": "intervention_intro",
+      "section_display": "干预部分介绍",
+      "title": "干预部分",
+      "content": "干预方案设计\ndemo介绍",
+      "short_content": "干预方案设计\ndemo介绍",
+      "image_url": "",
+      "order": 4
+    }
+  ]
+}
+

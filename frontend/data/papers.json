@@ -1,0 +1,29 @@
+{
+  "measurement": [
+    {
+      "id": 1,
+      "title": "基于提示学习的协作解决问题行为自动编码方法",
+      "authors": "Mengxiao Zhu, Xin Wang, Xiantao Wang, Zihang Chen, Wei Huang",
+      "category": "measurement",
+      "category_display": "测量",
+      "abstract": "针对协作解决问题过程中大量对话与操作行为数据长期依赖人工编码、成本高且难以规模化分析的问题，本项目围绕 CPS 行为子技能的自动识别与编码开展研究，提出了一种融合提示学习与规则编码的 CPS 行为自动编码方法。该方法通过重构传统分类任务形式，充分挖掘预训练语言模型的语言知识，在小规模标注数据条件下实现了高精度、强鲁棒性的 CPS 行为自动编码。",
+      "introduction": "",
+      "keywords": "协作解决问题, CPS, 提示学习, 自动编码, 行为识别",
+      "publication_date": "2024-10-01",
+      "journal": "CSCW 2024（Proceedings of the ACM on Human-Computer Interaction，CSCW 专刊）（CCF-A类会议）",
+      "doi": "",
+      "order": 1,
+      "images": [
+        {
+          "id": 1,
+          "image_url": "/images/1-1-method.png",
+          "caption": "模型方法框架图",
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "analysis": [],
+  "intervention": []
+}
+
