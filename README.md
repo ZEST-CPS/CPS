@@ -14,7 +14,6 @@
 ### 本地运行
 
 ```bash
-cd frontend
 python -m http.server 5500
 ```
 
@@ -23,21 +22,22 @@ python -m http.server 5500
 ## 项目结构
 
 ```
-frontend/
+MHHMAM/
 ├── index.html          # 主页面文件
 ├── js/
 │   └── app.js          # Vue 应用代码
 ├── data/
 │   ├── papers.json     # 论文数据
 │   └── overview.json  # 项目总览数据
-└── images/             # 图片资源
+├── images/             # 图片资源
+└── README.md           # 项目说明
 ```
 
 ## 数据管理
 
 ### 添加论文
 
-编辑 `frontend/data/papers.json` 文件，在对应的分类下添加新论文：
+编辑 `data/papers.json` 文件，在对应的分类下添加新论文：
 
 ```json
 {
@@ -67,11 +67,11 @@ frontend/
 
 ### 修改项目总览
 
-编辑 `frontend/data/overview.json` 文件，修改各部分的 `content` 字段。
+编辑 `data/overview.json` 文件，修改各部分的 `content` 字段。
 
 ### 添加图片
 
-将图片文件放到 `frontend/images/` 目录下，然后在 JSON 文件中使用绝对路径引用：
+将图片文件放到 `images/` 目录下，然后在 JSON 文件中使用绝对路径引用：
 - 使用绝对路径：`/images/图片文件名.png`
 
 ## 部署
@@ -82,7 +82,7 @@ frontend/
 - Vercel
 - 或其他静态网站托管服务
 
-只需将 `frontend` 目录的内容上传即可。
+只需将项目根目录的内容上传即可。
 
 ## 技术栈
 
