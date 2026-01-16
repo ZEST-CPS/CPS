@@ -5,6 +5,18 @@ const { createRouter, createWebHashHistory, useRoute, useRouter } = VueRouter;
 let papersData = null;
 let overviewData = null;
 
+// 获取基础路径（兼容 GitHub Pages 子路径部署）
+function getBasePath() {
+  const path = window.location.pathname;
+  // 如果路径包含仓库名（如 /CPS/），提取基础路径
+  const match = path.match(/^(\/[^\/]+\/)/);
+  if (match) {
+    return match[1]; // 返回 /CPS/
+  }
+  // 本地开发时返回 /
+  return '/';
+}
+
 // 加载JSON数据
 async function loadJSON(url) {
   try {
@@ -23,10 +35,12 @@ async function loadJSON(url) {
 // 初始化数据
 async function initData() {
   if (!papersData) {
-    papersData = await loadJSON('./data/papers.json');
+    const basePath = getBasePath();
+    papersData = await loadJSON(`${basePath}data/papers.json`);
   }
   if (!overviewData) {
-    overviewData = await loadJSON('./data/overview.json');
+    const basePath = getBasePath();
+    overviewData = await loadJSON(`${basePath}data/overview.json`);
   }
 }
 
@@ -185,7 +199,8 @@ const Home = {
       projectSections,
       formatContent,
       formatSectionContent,
-      goToSection
+      goToSection,
+      getImageUrl
     };
   },
   template: `
@@ -268,16 +283,18 @@ function createPaperListPage(category, title, sectionKey) {
         if (url.startsWith('http://') || url.startsWith('https://')) {
           return url;
         }
-        // 如果是绝对路径（以/开头），直接返回
+        // 获取基础路径
+        const basePath = getBasePath();
+        // 如果是绝对路径（以/开头），添加基础路径
         if (url.startsWith('/')) {
-          return url;
+          return basePath + url.substring(1);
         }
-        // 如果是相对路径（以./开头），去掉./前缀
+        // 如果是相对路径（以./开头），去掉./前缀并添加基础路径
         if (url.startsWith('./')) {
-          return url.substring(1);
+          return basePath + url.substring(2);
         }
-        // 默认加上 /
-        return '/' + url;
+        // 默认添加基础路径
+        return basePath + url;
       };
 
       const loadData = async () => {
