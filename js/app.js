@@ -159,6 +159,26 @@ const Home = {
       }).join('');
     };
 
+    const getImageUrl = (url) => {
+      if (!url) return '';
+      // 如果已经是完整URL，直接返回
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        return url;
+      }
+      // 获取基础路径
+      const basePath = getBasePath();
+      // 如果是绝对路径（以/开头），添加基础路径
+      if (url.startsWith('/')) {
+        return basePath + url.substring(1);
+      }
+      // 如果是相对路径（以./开头），去掉./前缀并添加基础路径
+      if (url.startsWith('./')) {
+        return basePath + url.substring(2);
+      }
+      // 默认添加基础路径
+      return basePath + url;
+    };
+
     const goToSection = (section) => {
       const routeMap = {
         'measurement_intro': '/measurement',
@@ -222,9 +242,9 @@ const Home = {
           <h2 class="section-title">研究框架</h2>
           <div class="image-container framework-image">
             <el-image 
-              src="/images/research_framework.png" 
+              :src="getImageUrl('/images/research_framework.png')" 
               fit="contain"
-              :preview-src-list="['/images/research_framework.png']"
+              :preview-src-list="[getImageUrl('/images/research_framework.png')]"
               alt="研究框架图"
             />
           </div>
