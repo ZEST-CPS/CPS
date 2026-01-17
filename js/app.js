@@ -93,7 +93,8 @@ const api = {
 const NavBar = {
   setup() {
     const router = useRouter();
-    const activeIndex = ref('home');
+    const route = useRoute();
+    const { watch } = Vue;
 
     const menuItems = [
       { index: 'home', path: '/', label: '首页' },
@@ -102,11 +103,28 @@ const NavBar = {
       { index: 'intervention', path: '/intervention', label: '干预' }
     ];
 
+    // 根据当前路由计算激活的菜单项路径
+    const getActivePath = () => {
+      const currentPath = route.path;
+      const item = menuItems.find(m => {
+        if (m.path === '/') {
+          return currentPath === '/' || currentPath === '';
+        }
+        return currentPath.startsWith(m.path);
+      });
+      return item ? item.path : '/';
+    };
+
+    const activeIndex = ref(getActivePath());
+
+    // 监听路由变化，更新激活状态
+    watch(() => route.path, () => {
+      activeIndex.value = getActivePath();
+    });
+
     const handleSelect = (key) => {
-      const item = menuItems.find(m => m.index === key);
-      if (item) {
-        router.push(item.path);
-      }
+      // key 现在是路径，直接跳转
+      router.push(key);
     };
 
     return {
@@ -120,9 +138,10 @@ const NavBar = {
       <el-menu
         :default-active="activeIndex"
         mode="horizontal"
+        :router="true"
         @select="handleSelect"
       >
-        <el-menu-item v-for="item in menuItems" :key="item.index" :index="item.index">
+        <el-menu-item v-for="item in menuItems" :key="item.index" :index="item.path">
           {{ item.label }}
         </el-menu-item>
       </el-menu>
@@ -134,7 +153,7 @@ const NavBar = {
 const Footer = {
   template: `
     <div>
-      <p>© 2024 项目成果展示网站</p>
+      <p>© 2026 项目成果展示网站</p>
     </div>
   `
 };
@@ -191,6 +210,21 @@ const Home = {
       }
     };
 
+    const goalsData = ref([
+      {
+        goal: '在国内外重要的 SSCI/SCI 学术期刊上发表 4-6 篇高水平论文，并在相关国际会议上发表 3-5 篇会议论文。',
+        achievement: '共计在国内外学术期刊和相关国际会议上发表论文20篇，其中包括Humanities &Social Sciences Communications，Decision Support Systems等期刊论文8篇，人机交互与学习科学领域知名会议如CSCW，ISLS，LAK等论文12篇。'
+      },
+      {
+        goal: '取得相关国内国际专利和软件著作权',
+        achievement: '项目开发的协作支持系统已经授权计算机软件著作权，用户行为数据高频采集与回放技术专利进入实质审查阶段'
+      },
+      {
+        goal: '培养研究生4-6名。',
+        achievement: '共计培养15名研究生，其中6名在读，9名毕业'
+      }
+    ]);
+
     const loadData = async () => {
       try {
         loading.value = true;
@@ -220,7 +254,8 @@ const Home = {
       formatContent,
       formatSectionContent,
       goToSection,
-      getImageUrl
+      getImageUrl,
+      goalsData
     };
   },
   template: `
@@ -237,17 +272,21 @@ const Home = {
             随着21世纪信息化和全球化的不断深入，知识和技术正在经历重要的转型。随着职业分工日益细化和项目的复杂化，很多问题的解决都需要具有不同专业背景的成员共同努力才能完成。合作能力(collaboration)、创新能力(creativity)、交流能力(communication)和批判性思维(Critical thinking)被公认为21世纪的人才所应具备的核心技能(4C)。中共中央、国务院在2019年初印发的《中国教育现代化2035》中强调了对于学生"实践动手能力、合作能力、创新能力的培养"。教育部发布的《义务教育小学科学课程标准》以及《普通高中课程方案(2017年版)》，也将"合作与交流"和"探索解决问题"列为学生应具备关键能力。合作解决问题(CollaborativeProblemSolving，CPS)能力作为一项复合型能力，涵盖了实践、批判性思维、合作、交流、创新等多方面的能力，是核心素养中重要组成部分之一。
           </div>
         </section>
-        <!-- 研究框架图 -->
-        <section class="content-box research-framework">
-          <h2 class="section-title">研究框架</h2>
-          <div class="image-container framework-image">
-            <el-image 
-              :src="getImageUrl('/images/research_framework.png')" 
-              fit="contain"
-              :preview-src-list="[getImageUrl('/images/research_framework.png')]"
-              alt="研究框架图"
-            />
-          </div>
+        <!-- 研究目标完成情况 -->
+        <section class="content-box research-goals">
+          <h2 class="section-title">研究目标完成情况</h2>
+          <el-table :data="goalsData" border style="width: 100%">
+            <el-table-column prop="goal" label="项目目标" width="400">
+              <template #default="scope">
+                <div style="line-height: 1.8;">{{ scope.row.goal }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="achievement" label="实际完成情况">
+              <template #default="scope">
+                <div style="line-height: 1.8;">{{ scope.row.achievement }}</div>
+              </template>
+            </el-table-column>
+          </el-table>
         </section>
         <div class="project-sections">
           <el-row :gutter="20">
